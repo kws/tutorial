@@ -1,93 +1,60 @@
-Spring MVC 01
+Spring MVC 02
 =============
 
-The first sample shows about as basic a setup as is possible. A maven project with embedded jetty
-running a single Spring Dispatcher servlet with a single controller.
+In the [first example] we saw how to create a very basic controller. But it wasn't very MVC-like. We're now going to look at
+plugging in a view, and doing some simple operations in the controller.
+
+The flow of a normal MVC application is something like:
 
 ```
-.
-├── pom.xml
-└── src
-    └── main
-        ├── java
-        │   └── net
-        │       └── chisquared
-        │           └── tutorials
-        │               └── spring
-        │                   └── web
-        │                       └── mvc01
-        │                           └── controllers
-        │                               └── SampleController.java
-        └── webapp
-            └── WEB-INF
-                ├── application-servlet.xml
-                └── web.xml
-
+request -> controller -> model -> view -> response
 ```
 
-First of all, the pom includes a single dependency: the Spring MVC framework jar. The only other item
-is the jetty plugin. Notice how the project follows standard maven project layout: `src/main/java` for 
-java code, and `src/main/webapp/` for the WAR contents.
+This is of course a schematic, and the ideal world rarely looks exactly like that, but it illustrates the basic ideas.
 
-The compulsory web.xml is also about as simple as it can get. It declares a single servlet, and binds this
-to the root url:
+# Change the controller to leave rendering to the view
 
-```xml
-<servlet>
-	<servlet-name>application</servlet-name>
-	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-	<load-on-startup>1</load-on-startup>
-</servlet>
-<servlet-mapping>
-	<servlet-name>application</servlet-name>
-	<url-pattern>/</url-pattern>
-</servlet-mapping>
-```
+In our first example, the controller wrote straight to a PrintWriter, in a similar fashion to the way it's done in
+a standard servlet's `doGet(HttpServletRequest req, HttpServletResponse resp)`. Insidentally, we could have used
+the HttpServletResponse in the controller method instead of a PrintWriter.
 
-What happens now is another bit of convention. Because we named the servlet "application" (`<servlet-name>application</servlet-name>`)
-the Spring DispatcherServlet will try to load configuration from the file `/WEB-INF/application.servlet.xml`. This can be changed
-with servlet init parameters, but we are happy to stick to the default behaviour.
-
-The [spring manual](http://static.springsource.org/spring/docs/current/spring-framework-reference/html/) is the best place to go for information
-about how the configuration files work. However, our file is about as simple as it can get:
-
-```xml
-<!-- Tell spring to configure itself based on class annotations and look for components in the package below -->
-<context:annotation-config/>
-<context:component-scan base-package="net.chisquared.tutorials.spring.web.mvc01"/>
-
-<!-- Now configure the MVC framework -->
-<mvc:annotation-driven/>
-<mvc:default-servlet-handler/>
-
-```
-
-These tells the dispatcher servlet to auto-configure itself by looking for components in `net.chisquared.tutorials.spring.web.mvc` 
-and also to register itself as the "default" servlet, i.e. handle all unhandled requests. This allows us to use the very simple
-"url-pattern" in web.xml above, but still let the default servlet behaviour serve up static resources such as images and javascript.
-
-Now, the last piece of the puzzle is the controller. In this case, we are not really following the MVC pattern, but instead
-showing how we wire in a controller to handle a simple web request. Don't worry, Spring can make this stuff really complicated and fun,
-but for now we stay simple:
+However, this doesn't really fit the little schematic above. What happened to the model and view. Using Spring MVC, the
+controller can return a value, and if we just return a String
 
 ```java
-@Controller
-public class SampleController {
-
-	@RequestMapping("/hello")
-	public void sampleControllerMethod(PrintWriter pw) {
-		pw.println("World");
-	}
-
+@RequestMapping("/")
+public String welcomePage() {
+	return "welcome";
 }
 ```
 
-First of all, notice how the controller doesn't implement or extend anything. It's just a basic class. We annotate it with `@Controller`,
-and this is picked up by the `<mvc:annotation-driven/>` part of the XML configuration. 
+then this String is taken to be the name of the view we want to handle our request - in this case, "welcome".
 
-The `@RequestMapping` annotation tells the framework that the method should handle a request. This annotation can take lots of different
-options, but in this simple case, we simply tell it to handle any request going to /hello. Try it out:
+# Adding a view
 
-<http://localhost:8080/hello>
+The first thing we do is to add a "view resolver" to the Spring configuration. In the Spring framework each view has
+a name, and the role of a view resolver is to pick the correct view to use for a display. It's usually up to the controller
+to say what the view should be, so controllers will typically return something like "welcome" to use the view named "welcome".
 
-If this works, let's get started on [sample 2](../spring-mvc-02/README.md)
+In our example we add an `InternalResourceViewResolver`. This is a type of view resolver that looks for a resource inside the
+war file, and uses that to render the view. In our case we are going to use a JSP, but we could use different templating
+languages (such as Freemarker or Velocity), or even XML or JSON as our view. Here's our JSP configuration:
+
+```xml
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/WEB-INF/jsp/" />
+	<property name="suffix" value=".jsp" />
+</bean>
+```
+
+this says that it should take the view name and stick `/WEB-INF/jsp/` in front of it, and `.jsp` at the end of it and see
+if it finds a file to handle the view. If it doesn't find anything it will continue on to the next configured view resolver,
+although in our case we just use one.
+
+Ok, we now have to add a JSP at `/WEB-INF/jsp/welcome.jsp` to handle our "welcome" view. 
+
+This is all we have to do to delegate the view rendering to a JSP.
+
+For the [next tutorial](../spring-mvc-03/README.md) we'll try to do something a bit more interesting.
+
+

@@ -13,3 +13,11 @@ running a single Spring Dispatcher servlet with a single controller.
 
 [Spring MVC 01](spring-mvc-01/README.md)
 
+# Spring MVC 02
+
+We now add a JSP view to the sample and see how the controller hands over to the view.
+
+[Spring MVC 02](spring-mvc-02/README.md)
+
+
+

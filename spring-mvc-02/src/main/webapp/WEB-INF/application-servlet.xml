@@ -24,4 +24,10 @@ If we have multiple dispatcher servlets, we can have multiple XML configurations
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 
+	<!-- Add a view resolver that uses JSPs -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
 </beans>
