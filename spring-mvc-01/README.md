@@ -88,6 +88,6 @@ and this is picked up by the `<mvc:annotation-driven/>` part of the XML configur
 The `@RequestMapping` annotation tells the framework that the method should handle a request. This annotation can take lots of different
 options, but in this simple case, we simply tell it to handle any request going to /hello. Try it out:
 
-http://localhost:8080/hello
+<http://localhost:8080/hello>
 
 If this works, let's get started on [sample 2](../spring-mvc-02/README.md)
