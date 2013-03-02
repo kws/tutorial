@@ -1,12 +1,5 @@
-Spring and related tools tutorial
-==================================
-
-This project contains some really simple examples to show some of the features of Spring MVC.
-
-The structure is somewhat linear - so example 02 may build on 01 for example, but this may not
-always be the case.
-
-# Spring MVC 01
+Spring MVC 01
+=============
 
 The first sample shows about as basic a setup as is possible. A maven project with embedded jetty
 running a single Spring Dispatcher servlet with a single controller.
@@ -73,4 +66,28 @@ These tells the dispatcher servlet to auto-configure itself by looking for compo
 and also to register itself as the "default" servlet, i.e. handle all unhandled requests. This allows us to use the very simple
 "url-pattern" in web.xml above, but still let the default servlet behaviour serve up static resources such as images and javascript.
 
+Now, the last piece of the puzzle is the controller. In this case, we are not really following the MVC pattern, but instead
+showing how we wire in a controller to handle a simple web request. Don't worry, Spring can make this stuff really complicated and fun,
+but for now we stay simple:
 
+```
+@Controller
+public class SampleController {
+
+	@RequestMapping("/hello")
+	public void sampleControllerMethod(PrintWriter pw) {
+		pw.println("World");
+	}
+
+}
+```
+
+First of all, notice how the controller doesn't implement or extend anything. It's just a basic class. We annotate it with `@Controller`,
+and this is picked up by the `<mvc:annotation-driven/>` part of the XML configuration. 
+
+The `@RequestMapping` annotation tells the framework that the method should handle a request. This annotation can take lots of different
+options, but in this simple case, we simply tell it to handle any request going to /hello. Try it out:
+
+http://localhost:8080/hello
+
+If this works, let's get started on [sample 2](../spring-mvc-02/README.md)
