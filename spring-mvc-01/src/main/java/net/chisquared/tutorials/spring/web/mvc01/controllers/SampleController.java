@@ -1,4 +1,4 @@
-package net.chisquared.tutorials.spring.web.mvc.controllers;
+package net.chisquared.tutorials.spring.web.mvc01.controllers;
 
 import java.io.PrintWriter;
 

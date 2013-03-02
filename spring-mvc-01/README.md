@@ -15,7 +15,7 @@ running a single Spring Dispatcher servlet with a single controller.
         │           └── tutorials
         │               └── spring
         │                   └── web
-        │                       └── mvc
+        │                       └── mvc01
         │                           └── controllers
         │                               └── SampleController.java
         └── webapp
@@ -54,7 +54,7 @@ about how the configuration files work. However, our file is about as simple as 
 ```xml
 <!-- Tell spring to configure itself based on class annotations and look for components in the package below -->
 <context:annotation-config/>
-<context:component-scan base-package="net.chisquared.tutorials.spring.web.mvc"/>
+<context:component-scan base-package="net.chisquared.tutorials.spring.web.mvc01"/>
 
 <!-- Now configure the MVC framework -->
 <mvc:annotation-driven/>
