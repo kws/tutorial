@@ -20,4 +20,9 @@ We now add a JSP view to the sample and see how the controller hands over to the
 [Spring MVC 02](spring-mvc-02/README.md)
 
 
+# Spring MVC 03
+
+Making the controller work for us.
+
+[Spring MVC 03](spring-mvc-03/README.md)
 
