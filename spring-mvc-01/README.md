@@ -32,7 +32,7 @@ java code, and `src/main/webapp/` for the WAR contents.
 The compulsory web.xml is also about as simple as it can get. It declares a single servlet, and binds this
 to the root url:
 
-```
+```xml
 <servlet>
 	<servlet-name>application</servlet-name>
 	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -51,7 +51,7 @@ with servlet init parameters, but we are happy to stick to the default behaviour
 The [spring manual](http://static.springsource.org/spring/docs/current/spring-framework-reference/html/) is the best place to go for information
 about how the configuration files work. However, our file is about as simple as it can get:
 
-```
+```xml
 <!-- Tell spring to configure itself based on class annotations and look for components in the package below -->
 <context:annotation-config/>
 <context:component-scan base-package="net.chisquared.tutorials.spring.web.mvc"/>
