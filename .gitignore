@@ -1,0 +1,16 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# maven build structure #
+target
+
+# eclipse files #
+.project
+.settings
+.classpath
+.springBeans
+

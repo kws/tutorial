@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+Because we create a dispatcher servlet named 'application', it tries by default to
+load configuration from /WEB-INF/<name>-servlet.xml, in this case /WEB-INF/application-servlet.xml
+
+If we have multiple dispatcher servlets, we can have multiple XML configurations.
+
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<!-- Tell spring to configure itself based on class annotations and look for components in the package below -->
+	<context:annotation-config/>
+	<context:component-scan base-package="net.chisquared.tutorials.spring.web.mvc"/>
+
+	<!-- Now configure the MVC framework -->
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
+
+</beans>
