@@ -70,7 +70,7 @@ Now, the last piece of the puzzle is the controller. In this case, we are not re
 showing how we wire in a controller to handle a simple web request. Don't worry, Spring can make this stuff really complicated and fun,
 but for now we stay simple:
 
-```
+```java
 @Controller
 public class SampleController {
 
