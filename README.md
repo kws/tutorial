@@ -19,7 +19,6 @@ We now add a JSP view to the sample and see how the controller hands over to the
 
 [Spring MVC 02](spring-mvc-02/README.md)
 
-
 # Spring MVC 03
 
 Making the controller work for us.
@@ -32,3 +31,8 @@ Passing parameters to the controller
 
 [Spring MVC 04](spring-mvc-04/README.md)
 
+# Spring MVC 05
+
+A full CRUD application, including data model, service layer and web layer.
+
+[Spring MVC 05](spring-mvc-05/README.md)
