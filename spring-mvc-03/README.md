@@ -97,6 +97,6 @@ For count, we simply use the [JSP Expression Language](http://docs.oracle.com/ja
 so it doesn't need escaping, so it's safe to just print as is. For the date we use another JSTL tag, in this case to format the time 
 and date components separately.
 
-**more to come when I have time**
+[Example 04](../spring-mvc-04/README.md) describes how to pass parameters to your controller.
 
 
