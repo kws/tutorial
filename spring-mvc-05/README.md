@@ -77,12 +77,12 @@ private PersonService personService;
 Spring will look for the `@Autowired` annotation and insert any implementation of that service that 
 it knows about. In this case, we made the `InMemoryPersonServiceImpl` discoverable to Spring by
 adding the `@Repository` annotation to that class. That means it was picked up by the 
-`<context:component-scan base-package="net.chisquared.tutorials.spring.web"/>` line in `application-servlet`.
+`<context:component-scan base-package="net.chisquared.tutorials.spring.web"/>` line in `application-servlet.xml`.
 There are many other ways we could have configured this as well, but for a small application, such
 hands-off configuration greatly reduces the amount of code and configuration needed.
 
 Anyway, having our list view isn't terribly exciting, as we don't have any data yet. We need to add a page
-for adding new companies:
+for adding new people:
 
 ```java
 @RequestMapping(value = "/person/add", method = RequestMethod.GET)
@@ -126,7 +126,7 @@ Now, for the form:
 
 Notice how we have included a new taglib (`http://www.springframework.org/tags/form`) with the prefix `form`. We don't create a normal
 HTML form, instead we use the `<form:form>` element, and all the inputs are from the form taglib as well. This basically handles the binding
-to the Person object for us. We tell the form that the `commandName` is person. This is the name of the attribute we populated in our controller.
+to the Person object for us. We tell the form that the `commandName` is "person". This is the name of the attribute we populated in our controller.
 Each of the form inputs take a path that is equivalent to the bean property accessors. 
 
 The only exception is the checkboxes - it references an attribute called "hobbies", but where is this coming from? We have to go back into 
@@ -221,4 +221,4 @@ public String delete(@PathVariable String personId, final RedirectAttributes red
 
 A pathvariable, a flash attribute. Nothing particularly exciting here.
 
-
+Have a go - see if it works.
