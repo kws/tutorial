@@ -23,6 +23,9 @@ If we have multiple dispatcher servlets, we can have multiple XML configurations
 	<!-- Now configure the MVC framework -->
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
+	
+	<!-- Add a basic welcome page -->
+	<mvc:view-controller path="/" view-name="welcome"/>
 
 	<!-- Add a view resolver that uses JSPs -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

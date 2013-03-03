@@ -1,17 +1,20 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head></head>
 <body>
 <h1>Parameters</h1>
 
-<ul>
-	<li>Count: ${count}</li>
-	<li>Time: <fmt:formatDate value="${time}" pattern="HH:mm:ss"/></li>
-	<li>Date: <fmt:formatDate value="${time}" pattern="d EEEEE yyyy"/></li>
-</ul>
-
-<p><a href="javascript:location.reload(true);">Reload</a> to update.</p>
+<table>  
+    <c:forEach items="${requestScope}" var="p">  
+    	<c:if test="${not fn:contains(p.key,'.')}">
+	        <tr>  
+	            <th>${p.key}:</th>  
+	            <td>"${p.value}"</td>  
+	        </tr>  
+        </c:if>
+    </c:forEach>  
+</table>
 
 <p>Back to our <a href="<c:url value="/"/>">welcome page</a>.
 

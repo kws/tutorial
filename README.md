@@ -26,3 +26,9 @@ Making the controller work for us.
 
 [Spring MVC 03](spring-mvc-03/README.md)
 
+# Spring MVC 04
+
+Passing parameters to the controller
+
+[Spring MVC 04](spring-mvc-04/README.md)
+

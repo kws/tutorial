@@ -1,40 +1,56 @@
 package net.chisquared.tutorials.spring.web.mvc04.controllers;
 
-import java.security.SecureRandom;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class SampleController {
-	private static final SecureRandom RND = new SecureRandom();
-	private int count;
 
 	/**
-	 * Return different views based on something happening in the controller
-	 */
-	@RequestMapping("/")
-	public String welcomePage() {
-		if (RND.nextBoolean()) {
-			return "welcome-green";
-		} else {
-			return "welcome-red";
-		}
-	}
-
-	/**
-	 * Return a model with some parameters
+	 * Example with basic parameters
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/parameters")
-	public ModelAndView parameters() {
-		// Create a ModelAndView and give it a view name
+	@RequestMapping("/ex1")
+	public ModelAndView example1(@RequestParam String firstName, @RequestParam String lastName) {
 		ModelAndView mav = new ModelAndView("parameters");
-		mav.addObject("count", count++);
-		mav.addObject("time", new Date());
+		mav.addObject("firstName", firstName);
+		mav.addObject("lastName", lastName);
+		return mav;
+	}
+
+	/**
+	 * Example with parameters and options
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/ex2")
+	public ModelAndView example2(@RequestParam(value = "first", required = false) String firstName,
+			@RequestParam("last") String lastName, @RequestParam(defaultValue = "25") int age) {
+		ModelAndView mav = new ModelAndView("parameters");
+		mav.addObject("firstName", firstName);
+		mav.addObject("lastName", lastName);
+		mav.addObject("age", age);
+		return mav;
+	}
+
+	/**
+	 * Example with date format
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/ex3")
+	public ModelAndView example3(@RequestParam String firstName, @RequestParam String lastName,
+			@RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") Date dateOfBirth) {
+		ModelAndView mav = new ModelAndView("parameters");
+		mav.addObject("firstName", firstName);
+		mav.addObject("lastName", lastName);
+		mav.addObject("dateOfBirth", dateOfBirth);
 		return mav;
 	}
 
